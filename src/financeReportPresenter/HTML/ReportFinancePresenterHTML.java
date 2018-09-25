@@ -1,13 +1,21 @@
 package financeReportPresenter.HTML;
 
+import com.sun.istack.internal.NotNull;
+
 import financeReportController.ReportFinancePresenter;
 import financeReportInteractor.ResponseFinanceReport;
 
+/**
+ * Generates fake "HTML" report, interacts with {@link financeReportController.ReportFinanceController}
+ * via {@link ReportFinancePresenter} interface.
+ *
+ * @author Natallia Radaman
+ */
 public class ReportFinancePresenterHTML implements ReportFinancePresenter {
 
-    private ResponseFinanceReport responseFinanceReport;
+    private final ResponseFinanceReport responseFinanceReport;
 
-    public ReportFinancePresenterHTML(ResponseFinanceReport responseFinanceReport) {
+    public ReportFinancePresenterHTML(@NotNull final ResponseFinanceReport responseFinanceReport) {
         this.responseFinanceReport = responseFinanceReport;
     }
 

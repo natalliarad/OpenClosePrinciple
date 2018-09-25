@@ -1,13 +1,21 @@
 package financeReportPresenter.PDF;
 
+import com.sun.istack.internal.NotNull;
+
 import financeReportController.ReportFinancePresenter;
 import financeReportInteractor.ResponseFinanceReport;
 
+/**
+ * Generates fake "PDF" report, interacts with {@link financeReportController.ReportFinanceController}
+ * * via {@link ReportFinancePresenter} interface.
+ *
+ * @author Natallia Radaman
+ */
 public class ReportFinancePresenterPDF implements ReportFinancePresenter {
 
-    private ResponseFinanceReport responseFinanceReport;
+    private final ResponseFinanceReport responseFinanceReport;
 
-    public ReportFinancePresenterPDF(ResponseFinanceReport responseFinanceReport) {
+    public ReportFinancePresenterPDF(@NotNull final ResponseFinanceReport responseFinanceReport) {
         this.responseFinanceReport = responseFinanceReport;
     }
 

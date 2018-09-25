@@ -1,20 +1,25 @@
 package financeReportController;
 
+import com.sun.istack.internal.NotNull;
+
 import financeReportInteractor.ReportAnalyzer;
 import financeReportInteractor.RequestFinanceReport;
 import financeReportInteractor.ResponseFinanceReport;
-import financeReportPresenter.HTML.ReportFinancePresenterHTML;
-import financeReportPresenter.PDF.ReportFinancePresenterPDF;
+import financeReportPresenter.ReportFinancePresenterFactory;
 
+/**
+ * This class contains main logic for analyzing data and selection type of view.
+ * Invoked from main() method in the EntryPoint.class.
+ *
+ * @author Natallia Radaman
+ */
 public class ReportFinanceController {
 
-    private RequestFinanceReport requestFinanceReport;
-    private ReportAnalyzer reportAnalyzer;
-    private ReportFinancePresenter reportFinancePresenter;
-    private final String TYPE_REPORT_HTML = "HTML";
-    private final String TYPE_REPORT_PDF = "PDF";
+    private final RequestFinanceReport requestFinanceReport;
+    private final ReportAnalyzer reportAnalyzer;
 
-    public ReportFinanceController(RequestFinanceReport requestFinanceReport, ReportAnalyzer reportAnalyze) {
+    public ReportFinanceController(@NotNull final RequestFinanceReport requestFinanceReport,
+                                   @NotNull final ReportAnalyzer reportAnalyze) {
         this.requestFinanceReport = requestFinanceReport;
         this.reportAnalyzer = reportAnalyze;
     }
@@ -23,17 +28,13 @@ public class ReportFinanceController {
         return reportAnalyzer.analyze(requestFinanceReport);
     }
 
-    public void showData(ResponseFinanceReport responseFinanceReport, String typeOfReport) {
-        reportFinancePresenter = null;
-        switch (typeOfReport) {
-            case TYPE_REPORT_HTML:
-                reportFinancePresenter = new ReportFinancePresenterHTML(responseFinanceReport);
-                break;
-            case TYPE_REPORT_PDF:
-                reportFinancePresenter = new ReportFinancePresenterPDF(responseFinanceReport);
-                break;
-        }
-        if (reportFinancePresenter !=null)
+    public void showData(@NotNull final ResponseFinanceReport responseFinanceReport,
+                         @NotNull final String typeOfReport) {
+        final ReportFinancePresenter reportFinancePresenter = ReportFinancePresenterFactory
+                .createReportPresenter(typeOfReport, responseFinanceReport);
+
+        if (reportFinancePresenter != null) {
             reportFinancePresenter.showFinanceReport();
+        }
     }
 }

@@ -1,5 +1,12 @@
 package financeReportInteractor;
 
+import com.sun.istack.internal.NotNull;
+
+/**
+ * Class for a particular request model.
+ *
+ * @author Natallia Radaman
+ */
 public class RequestModelReport implements RequestFinanceReport {
 
     private final String REPORT_WITHOUT_TAX = "REPORT_WITHOUT_TAX";
@@ -12,7 +19,7 @@ public class RequestModelReport implements RequestFinanceReport {
         this.rateOfTaxes = 0;
     }
 
-    public RequestModelReport(double rateOfTaxes) {
+    public RequestModelReport(@NotNull final double rateOfTaxes) {
         this.typeOfReport = REPORT_WITH_TAX;
         this.rateOfTaxes = rateOfTaxes;
     }

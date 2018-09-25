@@ -7,12 +7,12 @@ import java.util.Map;
 import financeReportInteractor.FinanceDataProvider;
 import financeReportInteractor.Taxes;
 
+/**
+ * This class implements {@link FinanceDataProvider} interface and get data from data base.
+ *
+ * @author Natallia Radaman
+ */
 public class FinanceDataBaseProvider implements FinanceDataProvider {
-
-    public FinanceDataBaseProvider() {
-        FinanceDataBase financeDataBase = new FinanceDataBase();
-
-    }
 
     @Override
     public Map<String, BigDecimal> getRevenues() {
@@ -31,6 +31,7 @@ public class FinanceDataBaseProvider implements FinanceDataProvider {
 
     @Override
     public Map<String, Taxes> getTaxes(final double taxesRate) {
+
         if (Taxes.isValidTaxRate(taxesRate)) {
             final Map<String, Taxes> taxesMap = new HashMap<>();
             final Map<String, BigDecimal> revenues = FinanceDataBase.getRevenues();
