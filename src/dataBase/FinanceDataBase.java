@@ -1,13 +1,20 @@
 package dataBase;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FinanceDataBase {
-    static final Map<String, BigDecimal> revenues;
-    static final Map<String, BigDecimal> operatingExpenses;
-    static final Map<String, BigDecimal> profit;
+/**
+ * This class generates fake data instead of a real external database.
+ *
+ * @author Natallia Radaman
+ */
+class FinanceDataBase {
+
+    private static final Map<String, BigDecimal> revenues;
+    private static final Map<String, BigDecimal> operatingExpenses;
+    private static final Map<String, BigDecimal> profit;
 
     static {
         revenues = new HashMap<>();
@@ -34,14 +41,14 @@ public class FinanceDataBase {
     }
 
     static Map<String, BigDecimal> getRevenues() {
-        return revenues;
+        return Collections.unmodifiableMap(revenues);
     }
 
     static Map<String, BigDecimal> getOperatingExpenses() {
-        return operatingExpenses;
+        return Collections.unmodifiableMap(operatingExpenses);
     }
 
     static Map<String, BigDecimal> getProfit() {
-        return profit;
+        return Collections.unmodifiableMap(profit);
     }
 }
