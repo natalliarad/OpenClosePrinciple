@@ -20,19 +20,19 @@ public class ReportAnalyzer implements ReportAnalyzerBoundary {
     }
 
     @Override
-    public ResponseFinanceReport analyze(RequestFinanceReport requestFinanceReport) {
+    public ResponseFinanceReport analyze(final RequestFinanceReport requestFinanceReport) {
         final Map<String, BigDecimal> revenues = financeDataProvider.getRevenues();
         final Map<String, BigDecimal> operatingExpenses = financeDataProvider.getOperatingExpenses();
         final Map<String, BigDecimal> profit = financeDataProvider.getProfit();
-        ResponseFinanceReport responseFinanceReport;
+        final ResponseFinanceReport responseFinanceReport;
         switch (requestFinanceReport.getTypeOfReport()) {
             case REPORT_WITHOUT_TAX:
 
-                for (Map.Entry<String, BigDecimal> entry : revenues.entrySet()) {
+                for (final Map.Entry<String, BigDecimal> entry : revenues.entrySet()) {
                     revenuesForPeriod += entry.getValue().doubleValue();
                 }
 
-                for (Map.Entry<String, BigDecimal> entry : operatingExpenses.entrySet()) {
+                for (final Map.Entry<String, BigDecimal> entry : operatingExpenses.entrySet()) {
                     operatingExpensesForPeriod += entry.getValue().doubleValue();
                 }
 
