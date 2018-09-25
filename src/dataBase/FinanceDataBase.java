@@ -5,6 +5,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class generates fake data instead of a real external database.
+ *
+ * @author Natallia Radaman
+ */
 class FinanceDataBase {
 
     private static final Map<String, BigDecimal> revenues;
