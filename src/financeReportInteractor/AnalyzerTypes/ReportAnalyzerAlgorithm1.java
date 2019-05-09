@@ -1,5 +1,7 @@
 package financeReportInteractor.AnalyzerTypes;
 
+import com.sun.istack.internal.NotNull;
+
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -10,39 +12,45 @@ import financeReportInteractor.ResponseFinanceReport;
 import financeReportInteractor.ResponseModelReport;
 import financeReportInteractor.Taxes;
 
+/**
+ * Analyzes data via {@link FinanceDataProvider} from {@link FinanceDataProvider}. Uses the
+ * fake analysis algorithm number 1.
+ *
+ * @author Natallia Radaman
+ */
 public class ReportAnalyzerAlgorithm1 implements ReportAnalyzer {
-
-    Double revenuesForPeriod = 0.0;
-    Double operatingExpensesForPeriod = 0.0;
-    Double profitForPeriod = 0.0;
 
     private final String REPORT_WITHOUT_TAX = "REPORT_WITHOUT_TAX";
     private final String REPORT_WITH_TAX = "REPORT_WITH_TAX";
 
+    private double revenuesForPeriod;
+    private double operatingExpensesForPeriod;
+    private double profitForPeriod;
+
     private final FinanceDataProvider financeDataProvider;
 
-    public ReportAnalyzerAlgorithm1(FinanceDataProvider financeDataProvider) {
+    public ReportAnalyzerAlgorithm1(@NotNull final FinanceDataProvider financeDataProvider) {
         this.financeDataProvider = financeDataProvider;
     }
 
     @Override
-    public ResponseFinanceReport analyze(RequestFinanceReport requestFinanceReport) {
+    public ResponseFinanceReport analyze(@NotNull final RequestFinanceReport requestFinanceReport) {
         final Map<String, BigDecimal> revenues = financeDataProvider.getRevenues();
         final Map<String, BigDecimal> operatingExpenses = financeDataProvider.getOperatingExpenses();
         final Map<String, BigDecimal> profit = financeDataProvider.getProfit();
-        ResponseFinanceReport responseFinanceReport;
+        final ResponseFinanceReport responseFinanceReport;
         switch (requestFinanceReport.getTypeOfReport()) {
             case REPORT_WITHOUT_TAX:
 
-                for (Map.Entry<String, BigDecimal> entry : revenues.entrySet()) {
+                for (final Map.Entry<String, BigDecimal> entry : revenues.entrySet()) {
                     revenuesForPeriod += entry.getValue().doubleValue();
                 }
 
-                for (Map.Entry<String, BigDecimal> entry : operatingExpenses.entrySet()) {
+                for (final Map.Entry<String, BigDecimal> entry : operatingExpenses.entrySet()) {
                     operatingExpensesForPeriod += entry.getValue().doubleValue();
                 }
 
-                for (Map.Entry<String, BigDecimal> entry : profit.entrySet()) {
+                for (final Map.Entry<String, BigDecimal> entry : profit.entrySet()) {
                     profitForPeriod += entry.getValue().doubleValue();
                 }
 
@@ -51,23 +59,23 @@ public class ReportAnalyzerAlgorithm1 implements ReportAnalyzer {
                 return responseFinanceReport;
             case REPORT_WITH_TAX:
 
-                Map<String, Taxes> taxes = financeDataProvider.getTaxes(requestFinanceReport.getRateOfTaxes());
-                Double profitForPeriodWithoutTaxes = 0.0;
-                Double taxesForPeriod = 0.0;
+                final Map<String, Taxes> taxes = financeDataProvider.getTaxes(requestFinanceReport.getRateOfTaxes());
+                double profitForPeriodWithoutTaxes = 0.0;
+                double taxesForPeriod = 0.0;
 
-                for (Map.Entry<String, BigDecimal> entry : revenues.entrySet()) {
+                for (final Map.Entry<String, BigDecimal> entry : revenues.entrySet()) {
                     revenuesForPeriod += entry.getValue().doubleValue();
                 }
 
-                for (Map.Entry<String, BigDecimal> entry : operatingExpenses.entrySet()) {
+                for (final Map.Entry<String, BigDecimal> entry : operatingExpenses.entrySet()) {
                     operatingExpensesForPeriod += entry.getValue().doubleValue();
                 }
 
-                for (Map.Entry<String, BigDecimal> entry : profit.entrySet()) {
+                for (final Map.Entry<String, BigDecimal> entry : profit.entrySet()) {
                     profitForPeriodWithoutTaxes += entry.getValue().doubleValue();
                 }
 
-                for (Map.Entry<String, Taxes> entry : taxes.entrySet()) {
+                for (final Map.Entry<String, Taxes> entry : taxes.entrySet()) {
                     taxesForPeriod += entry.getValue().getTaxValue().doubleValue();
                 }
 

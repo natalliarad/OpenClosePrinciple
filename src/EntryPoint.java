@@ -7,14 +7,14 @@ import financeReportInteractor.RequestFinanceReport;
 import financeReportInteractor.RequestModelReport;
 import financeReportInteractor.ResponseFinanceReport;
 
-public class EntryPoint {
+public final class EntryPoint {
 
-    public static void main(String[] args) {
-        FinanceDataProvider financeDataProvider = new FinanceDataBaseProvider();
-        ReportAnalyzer reportAnalyzer = new ReportAnalyzerAlgorithm1(financeDataProvider);
-        RequestFinanceReport requestFinanceReport = new RequestModelReport(.2);
-        ReportFinanceController reportFinanceController = new ReportFinanceController(requestFinanceReport, reportAnalyzer);
-        ResponseFinanceReport responseFinanceReport = reportFinanceController.analyzeData();
+    public static void main(final String[] args) {
+        final FinanceDataProvider financeDataProvider = new FinanceDataBaseProvider();
+        final ReportAnalyzer reportAnalyzer = new ReportAnalyzerAlgorithm1(financeDataProvider);
+        final RequestFinanceReport requestFinanceReport = new RequestModelReport(.2);
+        final ReportFinanceController reportFinanceController = new ReportFinanceController(requestFinanceReport, reportAnalyzer);
+        final ResponseFinanceReport responseFinanceReport = reportFinanceController.analyzeData();
         reportFinanceController.showData(responseFinanceReport, "HTML");
         reportFinanceController.showData(responseFinanceReport, "PDF");
     }
